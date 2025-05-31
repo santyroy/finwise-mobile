@@ -1,8 +1,6 @@
 import {useEffect, useState} from 'react';
-import {MMKV} from 'react-native-mmkv';
-import {keys} from 'constants/MMKV';
-
-const storage = new MMKV();
+import {storage} from '@data/mmkv';
+import {keys} from 'constants/mmkv';
 
 const useAppFirstLaunch = () => {
   const [isAppFirstLaunched, setIsAppFirstLaunched] = useState<boolean | null>(
