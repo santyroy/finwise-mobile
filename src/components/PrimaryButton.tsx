@@ -8,7 +8,7 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import {Colors} from '@constants/Colors';
+import {Colors} from 'constants/colors';
 
 interface PrimaryButtonProps extends PressableProps {
   title: string;

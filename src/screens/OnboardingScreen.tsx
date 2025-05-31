@@ -9,9 +9,9 @@ import {
   View,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {slides} from '@constants/Onboarding';
+import {slides} from 'constants/onboarding';
 import {useRef, useState} from 'react';
-import {Colors} from 'constants/Colors';
+import {Colors} from 'constants/colors';
 import {OnboardingScreenNavigationProp} from 'types/navigation_types';
 import PrimaryButton from 'components/PrimaryButton';
 import SecondaryButton from 'components/SecondaryButton';

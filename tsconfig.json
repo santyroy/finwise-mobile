@@ -12,7 +12,8 @@
       "@hooks/*": ["src/hooks/*"],
       "@app-types/*": ["src/types/*"],
       "@constants/*": ["src/constants/*"],
-      "@navigation/*": ["src/navigation/*"]
+      "@navigation/*": ["src/navigation/*"],
+      "@data/*": ["src/data/*"]
     }
   }
 }

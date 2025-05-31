@@ -16,6 +16,7 @@ module.exports = {
           '@app-types': './src/types',
           '@constants': './src/constants',
           '@navigation': './src/navigation',
+          '@data': './src/data',
         },
       },
     ],
