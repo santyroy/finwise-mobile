@@ -1,62 +1,64 @@
-import {FC} from 'react';
 import {
   Platform,
   Pressable,
   PressableProps,
+  StyleProp,
   StyleSheet,
   Text,
   TextStyle,
   View,
   ViewStyle,
 } from 'react-native';
+import React, {FC} from 'react';
 import {Colors} from 'constants/colors';
 
-interface PrimaryButtonProps extends PressableProps {
+interface ButtonProps extends PressableProps {
   title: string;
-  style?: ViewStyle;
-  textStyle?: TextStyle;
+  textStyle?: StyleProp<TextStyle>;
+  btnContainerStyle?: StyleProp<ViewStyle>;
+  btnStyle?: StyleProp<ViewStyle>;
 }
 
-const SecondaryButton: FC<PrimaryButtonProps> = ({
-  title,
-  style,
-  textStyle,
-  ...props
-}) => {
-  return (
-    <View style={styles.buttonContainer}>
-      <Pressable
-        android_ripple={{color: Colors.violet[40]}}
-        style={({pressed}) => [
-          styles.button,
-          Platform.OS === 'ios' && pressed ? styles.buttonPressed : null,
-          style,
-        ]}
-        {...props}>
-        <Text style={[styles.buttonText, textStyle]}>{title}</Text>
-      </Pressable>
-    </View>
-  );
-};
+const RIPPLE_COLOR = Colors.violet[40];
+const PRESSED_OPACITY = 0.5;
 
-export default SecondaryButton;
+const Button: FC<ButtonProps> = React.memo(
+  ({title, textStyle, btnContainerStyle, btnStyle, ...props}) => {
+    return (
+      <View style={[styles.buttonContainer, btnContainerStyle]}>
+        <Pressable
+          style={({pressed}) => [
+            pressed && Platform.OS === 'ios' && styles.buttonPressed,
+            styles.button,
+            btnStyle,
+          ]}
+          android_ripple={{color: RIPPLE_COLOR}}
+          {...props}>
+          <Text style={[styles.buttonText, textStyle]}>{title}</Text>
+        </Pressable>
+      </View>
+    );
+  },
+);
+
+export default Button;
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    flex: 1,
+    backgroundColor: Colors.violet[20],
     borderRadius: 15,
     overflow: 'hidden',
-    backgroundColor: Colors.violet['20'],
+    maxWidth: '100%',
   },
   button: {
-    paddingVertical: 15,
+    padding: 15,
   },
   buttonPressed: {
-    opacity: 0.5,
+    opacity: PRESSED_OPACITY,
   },
   buttonText: {
-    color: Colors.violet[100],
     textAlign: 'center',
+    color: Colors.violet[100],
     fontSize: 18,
     fontWeight: 'bold',
   },
