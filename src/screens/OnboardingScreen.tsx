@@ -107,6 +107,7 @@ export default OnboardingScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: Colors.base.light[100],
   },
 
   // OnboardingSlide
