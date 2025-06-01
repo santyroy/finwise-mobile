@@ -1,3 +1,4 @@
+import {FC} from 'react';
 import {
   Platform,
   Pressable,
@@ -16,12 +17,12 @@ interface PrimaryButtonProps extends PressableProps {
   textStyle?: TextStyle;
 }
 
-const SecondaryButton = ({
+const SecondaryButton: FC<PrimaryButtonProps> = ({
   title,
   style,
   textStyle,
   ...props
-}: PrimaryButtonProps) => {
+}) => {
   return (
     <View style={styles.buttonContainer}>
       <Pressable
