@@ -90,12 +90,24 @@ const OnboardingScreen = () => {
       {/* Buttons */}
       {currentSlideIndex !== slides.length - 1 ? (
         <View style={styles.buttonContainer}>
-          <SecondaryButton title="Skip" onPress={skipSlides} />
-          <PrimaryButton title="Next" onPress={nextSlide} />
+          <SecondaryButton
+            title="Skip"
+            onPress={skipSlides}
+            btnContainerStyle={styles.btnFlex}
+          />
+          <PrimaryButton
+            title="Next"
+            onPress={nextSlide}
+            btnContainerStyle={styles.btnFlex}
+          />
         </View>
       ) : (
         <View style={styles.buttonContainer}>
-          <PrimaryButton title="Get Started" onPress={goToSignIn} />
+          <PrimaryButton
+            title="Get Started"
+            onPress={goToSignIn}
+            btnContainerStyle={styles.btnFlex}
+          />
         </View>
       )}
     </SafeAreaView>
@@ -154,5 +166,8 @@ const styles = StyleSheet.create({
     gap: 20,
     marginHorizontal: 20,
     marginTop: 20,
+  },
+  btnFlex: {
+    flex: 1,
   },
 });
