@@ -130,11 +130,12 @@ const styles = StyleSheet.create({
     height: '75%',
   },
   slideTitle: {
-    fontSize: 32,
+    fontSize: 28,
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 10,
     color: Colors.base.dark['100'],
+    maxWidth: '90%',
   },
   slideSubTitle: {
     maxWidth: '70%',
