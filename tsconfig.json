@@ -13,7 +13,8 @@
       "@app-types/*": ["src/types/*"],
       "@constants/*": ["src/constants/*"],
       "@navigation/*": ["src/navigation/*"],
-      "@data/*": ["src/data/*"]
+      "@data/*": ["src/data/*"],
+      "@schema/*": ["src/schema/*"]
     }
   }
 }
