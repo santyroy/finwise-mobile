@@ -3,43 +3,74 @@ import Icon from '@react-native-vector-icons/fontawesome6';
 import {Link} from '@react-navigation/native';
 import PrimaryButton from 'components/PrimaryButton';
 import {useState} from 'react';
-import {Pressable, StyleSheet, Text, TextInput, View} from 'react-native';
+import {Pressable, StyleSheet, Text, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {SubmitHandler, useForm} from 'react-hook-form';
+import InputComponent from 'components/InputComponent';
+import {SignInSchema} from '@schema/signinSchema';
+import {z} from 'zod';
+import {zodResolver} from '@hookform/resolvers/zod';
+import ErrorComponent from 'components/ErrorComponent';
+
+type SignInSchemaType = z.infer<typeof SignInSchema>;
 
 const SignInScreen = () => {
-  const [isPasswordShown, setIsPasswordShown] = useState<boolean>(false);
+  const [isPasswordHidden, setIsPasswordHidden] = useState<boolean>(false);
+  const {
+    control,
+    handleSubmit,
+    formState: {errors},
+  } = useForm<SignInSchemaType>({resolver: zodResolver(SignInSchema)});
 
+  const onSubmit: SubmitHandler<SignInSchemaType> = data => console.log(data);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Sign In</Text>
       </View>
+
       <View style={styles.formContainer}>
-        <TextInput
-          placeholder="Email"
-          placeholderTextColor={Colors.base.light[20]}
-          keyboardType="email-address"
-          style={styles.input}
-        />
-        <View style={styles.positionRelative}>
-          <TextInput
-            placeholder="Password"
-            placeholderTextColor={Colors.base.light[20]}
-            secureTextEntry={isPasswordShown}
-            style={styles.input}
+        <View style={styles.formInputContainer}>
+          <InputComponent
+            name="email"
+            placeHolderText="Email"
+            control={control}
           />
-          <Pressable
-            style={styles.buttonEye}
-            hitSlop={20}
-            onPress={() => setIsPasswordShown(!isPasswordShown)}>
-            {isPasswordShown ? (
-              <Icon name="eye" size={20} color={Colors.base.light[20]} />
-            ) : (
-              <Icon name="eye-slash" size={20} color={Colors.base.light[20]} />
-            )}
-          </Pressable>
+          <View>{errors.email && <ErrorComponent error={errors.email} />}</View>
         </View>
-        <PrimaryButton title="Sign In" btnContainerStyle={styles.marginTop30} />
+
+        <View style={styles.formInputContainer}>
+          <View style={styles.positionRelative}>
+            <InputComponent
+              name="password"
+              placeHolderText="Password"
+              control={control}
+            />
+            <Pressable
+              style={styles.buttonEye}
+              hitSlop={20}
+              onPress={() => setIsPasswordHidden(!isPasswordHidden)}>
+              {isPasswordHidden ? (
+                <Icon
+                  name="eye-slash"
+                  size={20}
+                  color={Colors.base.light[20]}
+                />
+              ) : (
+                <Icon name="eye" size={20} color={Colors.base.light[20]} />
+              )}
+            </Pressable>
+          </View>
+          <View>
+            {errors.password && <ErrorComponent error={errors.password} />}
+          </View>
+        </View>
+
+        <PrimaryButton
+          title="Sign In"
+          btnContainerStyle={styles.marginTop30}
+          onPress={handleSubmit(onSubmit)}
+        />
 
         <Link
           screen={'ForgotPassword'}
@@ -74,14 +105,8 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   headerTitle: {fontSize: 18, fontWeight: 'bold'},
-  input: {
-    paddingVertical: 15,
-    paddingHorizontal: 25,
-    borderWidth: 1,
-    borderColor: Colors.base.light[40],
-    borderRadius: 15,
-  },
   formContainer: {marginTop: 50, gap: 20},
+  formInputContainer: {gap: 5},
   positionRelative: {position: 'relative'},
   buttonEye: {
     position: 'absolute',
