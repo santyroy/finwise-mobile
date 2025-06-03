@@ -15,7 +15,7 @@ import ErrorComponent from 'components/ErrorComponent';
 type SignInSchemaType = z.infer<typeof SignInSchema>;
 
 const SignInScreen = () => {
-  const [isPasswordHidden, setIsPasswordHidden] = useState<boolean>(false);
+  const [isPasswordHidden, setIsPasswordHidden] = useState<boolean>(true);
   const {
     control,
     handleSubmit,
@@ -35,6 +35,7 @@ const SignInScreen = () => {
             name="email"
             placeHolderText="Email"
             control={control}
+            keyboardType="email-address"
           />
           <View>{errors.email && <ErrorComponent error={errors.email} />}</View>
         </View>
@@ -45,6 +46,7 @@ const SignInScreen = () => {
               name="password"
               placeHolderText="Password"
               control={control}
+              secureTextEntry={isPasswordHidden}
             />
             <Pressable
               style={styles.buttonEye}
@@ -97,7 +99,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.base.light[100],
     paddingHorizontal: 10,
-    paddingTop: 20,
+    paddingVertical: 20,
   },
   header: {
     alignItems: 'center',
