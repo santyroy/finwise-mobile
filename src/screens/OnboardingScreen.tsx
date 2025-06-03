@@ -120,6 +120,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.base.light[100],
+    paddingVertical: 20,
   },
 
   // OnboardingSlide
