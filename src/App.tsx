@@ -7,7 +7,13 @@ const App = () => {
 
   return (
     <SafeAreaProvider>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+      {/* TODO: Currently as the app supports on light mode, so setting barStyle='dark-content'
+      in order to show status bar in both light & dark theme */}
+      <StatusBar
+        translucent
+        backgroundColor="transparent"
+        barStyle={isDarkMode ? 'dark-content' : 'dark-content'}
+      />
       <RootNavigator />
     </SafeAreaProvider>
   );
