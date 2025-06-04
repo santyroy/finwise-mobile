@@ -43,5 +43,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Colors.base.light[40],
     borderRadius: 15,
+    color: Colors.base.dark[100],
   },
 });
