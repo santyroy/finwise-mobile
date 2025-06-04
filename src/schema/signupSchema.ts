@@ -7,5 +7,8 @@ export const SignUpSchema = z.object({
   email: z.string({message: 'Email is required'}).email('Invalid Email'),
   password: z
     .string({message: 'Password is required'})
-    .min(6, 'Password must be min of 6 characters'),
+    .min(8, 'Password must be min of 8 characters'),
+  mobileNumber: z
+    .string({message: 'Mobile number is mandatory'})
+    .regex(/^\d{10}$/, {message: 'Mobile number must be exactly 10 digits'}),
 });
