@@ -18,8 +18,8 @@ const AuthStack = () => {
       {isAppFirstLaunched && (
         <Stack.Screen name="Onboarding" component={OnboardingScreen} />
       )}
-      <Stack.Screen name="SignIn" component={SignInScreen} />
       <Stack.Screen name="SignUp" component={SignUpScreen} />
+      <Stack.Screen name="SignIn" component={SignInScreen} />
     </Stack.Navigator>
   );
 };
