@@ -11,6 +11,7 @@ import {SignInSchema} from '@schema/signinSchema';
 import {z} from 'zod';
 import {zodResolver} from '@hookform/resolvers/zod';
 import ErrorComponent from 'components/ErrorComponent';
+import Header from 'components/Header';
 
 type SignInSchemaType = z.infer<typeof SignInSchema>;
 
@@ -25,8 +26,8 @@ const SignInScreen = () => {
   const onSubmit: SubmitHandler<SignInSchemaType> = data => console.log(data);
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>Sign In</Text>
+      <View>
+        <Header title="Sign In" />
       </View>
 
       <View style={styles.formContainer}>
@@ -101,12 +102,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 20,
   },
-  header: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'relative',
-  },
-  headerTitle: {fontSize: 18, fontWeight: 'bold'},
   formContainer: {marginTop: 50, gap: 20},
   formInputContainer: {gap: 5},
   positionRelative: {position: 'relative'},
