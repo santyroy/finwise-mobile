@@ -1,5 +1,6 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React, {FC} from 'react';
+import {Colors} from 'constants/colors';
 
 interface HeaderProps {
   title: string;
@@ -21,5 +22,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     position: 'relative',
   },
-  headerTitle: {fontSize: 18, fontWeight: 'bold'},
+  headerTitle: {fontSize: 18, fontWeight: 'bold', color: Colors.base.dark[50]},
 });

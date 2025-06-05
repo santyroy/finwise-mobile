@@ -7,7 +7,7 @@ interface BackButtonProps extends PressableProps {}
 const BackButton: FC<BackButtonProps> = ({...props}) => {
   return (
     <Pressable style={styles.headerBackButton} hitSlop={20} {...props}>
-      <Icon name="arrow-left-long" iconStyle="solid" size={24} />
+      <Icon name="arrow-left" iconStyle="solid" size={24} />
     </Pressable>
   );
 };
