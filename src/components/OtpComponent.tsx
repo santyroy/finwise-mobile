@@ -154,10 +154,10 @@ const styles = StyleSheet.create({
   input: {
     width: 40,
     height: 40,
-    backgroundColor: Colors.violet[20],
+    backgroundColor: Colors.base.light['60'],
     color: Colors.violet[100],
     borderRadius: 20,
-    fontSize: 15,
+    fontSize: 16,
     fontWeight: 'bold',
     textAlign: 'center',
   },
