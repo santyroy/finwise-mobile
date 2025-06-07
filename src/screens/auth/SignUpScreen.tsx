@@ -1,8 +1,9 @@
-import {useState} from 'react';
+import {FC, useState} from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import CheckBox from '@react-native-community/checkbox';
 import {Link} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 import Icon from '@react-native-vector-icons/fontawesome6';
 import {useForm, SubmitHandler} from 'react-hook-form';
@@ -11,18 +12,25 @@ import {zodResolver} from '@hookform/resolvers/zod';
 import {Colors} from '@constants/colors';
 import {SignupRequest} from 'types/signup_types';
 
-import PrimaryButton from 'components/PrimaryButton';
-import InputComponent from 'components/InputComponent';
-import ErrorComponent from 'components/ErrorComponent';
-import Header from 'components/Header';
+import PrimaryButton from '@components/PrimaryButton';
+import InputComponent from '@components/InputComponent';
+import ErrorComponent from '@components/ErrorComponent';
+import Header from '@components/Header';
+import LoadingComponent from '@components/LoadingComponent';
 
 import {SignUpSchema} from '@schema/signupSchema';
+import {AuthStackParamList} from '@navigation/AuthStack';
 
-import {signup} from 'services/auth';
+import {signup} from '@services/auth';
 
-const SignUpScreen = () => {
+interface SignUpScreenProps {
+  navigation: NativeStackNavigationProp<AuthStackParamList, 'SignUp'>;
+}
+
+const SignUpScreen: FC<SignUpScreenProps> = ({navigation}) => {
   const [isPasswordHidden, setIsPasswordHidden] = useState<boolean>(true);
   const [toggleCheckBox, setToggleCheckBox] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const {
     control,
     handleSubmit,
@@ -30,15 +38,22 @@ const SignUpScreen = () => {
   } = useForm<SignupRequest>({resolver: zodResolver(SignUpSchema)});
 
   const onSubmit: SubmitHandler<SignupRequest> = async data => {
+    setIsLoading(true);
     try {
       const response = await signup(data);
-      console.log(response);
+      const {email} = response;
+      navigation.navigate('Verification', {email: email});
     } catch (error) {
-      console.log('Error from SignUpScreen: ', error);
+      console.error('Error from SignUpScreen: ', error);
+    } finally {
+      setIsLoading(false);
     }
   };
+
   return (
     <SafeAreaView style={styles.container}>
+      {isLoading && <LoadingComponent message="Signing Up..." />}
+
       <View>
         <Header title="Sign Up" />
       </View>
