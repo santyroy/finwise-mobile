@@ -1,5 +1,5 @@
 import {Colors} from 'constants/colors';
-import {useRef} from 'react';
+import {FC, useRef} from 'react';
 import {StyleSheet, TextInput, View} from 'react-native';
 
 interface OtpComponentProps {
@@ -7,7 +7,7 @@ interface OtpComponentProps {
   setOtp: (otp: string[]) => void;
 }
 
-const OtpComponent2 = ({otp, setOtp}: OtpComponentProps) => {
+const OtpComponent2: FC<OtpComponentProps> = ({otp, setOtp}) => {
   const ref1 = useRef<TextInput>(null);
   const ref2 = useRef<TextInput>(null);
   const ref3 = useRef<TextInput>(null);

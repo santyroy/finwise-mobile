@@ -1,12 +1,12 @@
 import {Colors} from 'constants/colors';
-import {useEffect, useState} from 'react';
+import {FC, useEffect, useState} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
 interface CountDownComponentProps {
   timeInSeconds: number;
 }
 
-const CountDownComponent = ({timeInSeconds}: CountDownComponentProps) => {
+const CountDownComponent: FC<CountDownComponentProps> = ({timeInSeconds}) => {
   const [time, setTime] = useState(timeInSeconds);
 
   useEffect(() => {
