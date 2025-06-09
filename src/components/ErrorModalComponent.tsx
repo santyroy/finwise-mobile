@@ -1,14 +1,8 @@
 import {FC} from 'react';
-import {
-  Modal,
-  ModalProps,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import {Modal, ModalProps, StyleSheet, Text, View} from 'react-native';
 import {Colors} from '@constants/Colors';
 import Icon from '@react-native-vector-icons/fontawesome6';
+import PrimaryButton from './PrimaryButton';
 
 interface ErrorModalComponentProps extends ModalProps {
   message?: string;
@@ -35,11 +29,12 @@ const ErrorModalComponent: FC<ErrorModalComponentProps> = ({
             iconStyle="solid"
           />
           <Text style={styles.modalText}>{message}</Text>
-          <Pressable
+          <PrimaryButton
+            title="Try again"
             onPress={() => onClose(false)}
-            style={[styles.closeBtn, styles.shadowProp]}>
-            <Text style={styles.closeBtnText}>Try again</Text>
-          </Pressable>
+            btnStyle={[styles.closeBtn, styles.shadowProp]}
+            textStyle={styles.closeBtnText}
+          />
         </View>
       </View>
     </Modal>
