@@ -16,12 +16,14 @@ import PrimaryButton from '@components/PrimaryButton';
 import InputComponent from '@components/InputComponent';
 import ErrorComponent from '@components/ErrorComponent';
 import Header from '@components/Header';
-import LoadingComponent from '@components/LoadingModalComponent';
+import LoadingModalComponent from '@components/LoadingModalComponent';
+import ErrorModalComponent from '@components/ErrorModalComponent';
 
 import {SignUpSchema} from '@schema/signupSchema';
 import {AuthStackParamList} from '@navigation/AuthStack';
 
 import {signup} from '@services/auth';
+import CustomError from '@data/CustomError';
 
 interface SignUpScreenProps {
   navigation: NativeStackNavigationProp<AuthStackParamList, 'SignUp'>;
@@ -31,6 +33,8 @@ const SignUpScreen: FC<SignUpScreenProps> = ({navigation}) => {
   const [isPasswordHidden, setIsPasswordHidden] = useState<boolean>(true);
   const [toggleCheckBox, setToggleCheckBox] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(true);
+  const [error, setError] = useState<string>('');
   const {
     control,
     handleSubmit,
@@ -39,12 +43,19 @@ const SignUpScreen: FC<SignUpScreenProps> = ({navigation}) => {
 
   const onSubmit: SubmitHandler<SignupRequest> = async data => {
     setIsLoading(true);
+    setIsError(false);
+    setError('');
     try {
       const response = await signup(data);
       const {email} = response;
       navigation.navigate('Verification', {email: email});
-    } catch (error) {
-      console.error('Error from SignUpScreen: ', error);
+    } catch (err) {
+      setIsError(true);
+      if (err instanceof CustomError) {
+        setError(err.message);
+      } else {
+        setError('Something went wrong!');
+      }
     } finally {
       setIsLoading(false);
     }
@@ -52,7 +63,16 @@ const SignUpScreen: FC<SignUpScreenProps> = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {isLoading && <LoadingComponent message="Signing Up..." />}
+      {isLoading && (
+        <LoadingModalComponent message="Signing Up..." visible={isLoading} />
+      )}
+      {isError && (
+        <ErrorModalComponent
+          message={error}
+          visible={isError}
+          onClose={setIsError}
+        />
+      )}
 
       <View>
         <Header title="Sign Up" />
