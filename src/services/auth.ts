@@ -1,6 +1,7 @@
 import {AxiosError} from 'axios';
 import {SignupRequest, UserResponse} from 'types/signup_types';
 import API from './apiConfig';
+import CustomError from 'data/CustomError';
 
 // sigmup user
 export const signup = async (data: SignupRequest): Promise<UserResponse> => {
@@ -12,22 +13,17 @@ export const signup = async (data: SignupRequest): Promise<UserResponse> => {
     if (error instanceof AxiosError) {
       if (error.response) {
         // Server responded with a status code that we can handle
-        console.error(
-          'Server error:',
-          error.response.status,
-          error.response.data,
-        );
+        throw new CustomError(error.response.status, error.response.data);
       } else if (error.request) {
         // Request was made but no response received
-        console.error('Network error:', error.message);
+        throw new CustomError(500, 'Network Error');
       } else {
         // Error occurred in setting up the request
-        console.error('Error:', error.message);
+        throw new CustomError(500, error.message);
       }
     } else {
       // Handle non-Axios errors (e.g., type assertion errors)
-      console.error('Unexpected error:', error);
+      throw new CustomError(500, 'Unexpected Error');
     }
-    throw error;
   }
 };
