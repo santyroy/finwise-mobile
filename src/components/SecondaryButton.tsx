@@ -46,7 +46,7 @@ export default Button;
 const styles = StyleSheet.create({
   buttonContainer: {
     backgroundColor: Colors.violet[20],
-    borderRadius: 15,
+    borderRadius: 10,
     overflow: 'hidden',
     maxWidth: '100%',
   },
