@@ -33,7 +33,7 @@ const SignUpScreen: FC<SignUpScreenProps> = ({navigation}) => {
   const [isPasswordHidden, setIsPasswordHidden] = useState<boolean>(true);
   const [toggleCheckBox, setToggleCheckBox] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isError, setIsError] = useState<boolean>(true);
+  const [isError, setIsError] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
   const {
     control,
