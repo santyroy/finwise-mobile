@@ -1,6 +1,6 @@
-import {Colors} from 'constants/colors';
 import {FC, useRef} from 'react';
 import {StyleSheet, TextInput, View} from 'react-native';
+import {Colors} from '@constants/Colors';
 
 interface OtpComponentProps {
   otp: string[];

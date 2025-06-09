@@ -1,14 +1,16 @@
 import {FC, useState} from 'react';
+import {StyleSheet, Text} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {AuthStackParamList} from 'navigation/AuthStack';
 import {RouteProp} from '@react-navigation/native';
-import {StyleSheet, Text} from 'react-native';
-import Header from 'components/Header';
-import OtpComponent from 'components/OtpComponent';
-import PrimaryButton from 'components/PrimaryButton';
-import {Colors} from 'constants/colors';
-import CountDownComponent from 'components/CountDownComponent';
+
+import Header from '@components/Header';
+import OtpComponent from '@components/OtpComponent';
+import PrimaryButton from '@components/PrimaryButton';
+import CountDownComponent from '@components/CountDownComponent';
+import {AuthStackParamList} from '@navigation/AuthStack';
+
+import {Colors} from '@constants/Colors';
 
 interface VerificationScreenProps {
   navigation: NativeStackNavigationProp<AuthStackParamList, 'Verification'>;

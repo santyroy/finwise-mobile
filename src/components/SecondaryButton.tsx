@@ -10,7 +10,7 @@ import {
   ViewStyle,
 } from 'react-native';
 import React, {FC} from 'react';
-import {Colors} from 'constants/colors';
+import {Colors} from '@constants/Colors';
 
 interface ButtonProps extends PressableProps {
   title: string;

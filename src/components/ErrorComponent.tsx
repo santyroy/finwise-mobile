@@ -1,7 +1,7 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React, {FC} from 'react';
 import {FieldError} from 'react-hook-form';
-import {Colors} from 'constants/colors';
+import {Colors} from '@constants/Colors';
 import Icon from '@react-native-vector-icons/fontawesome6';
 
 interface ErrorComponentProps {

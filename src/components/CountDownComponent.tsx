@@ -1,6 +1,6 @@
-import {Colors} from 'constants/colors';
 import {FC, useEffect, useState} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
+import {Colors} from '@constants/Colors';
 
 interface CountDownComponentProps {
   timeInSeconds: number;

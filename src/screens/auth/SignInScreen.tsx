@@ -1,21 +1,29 @@
-import {Colors} from '@constants/colors';
-import Icon from '@react-native-vector-icons/fontawesome6';
-import {Link} from '@react-navigation/native';
-import PrimaryButton from 'components/PrimaryButton';
-import {useState} from 'react';
+import {FC, useState} from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {Link} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {SubmitHandler, useForm} from 'react-hook-form';
-import InputComponent from 'components/InputComponent';
-import {SignInSchema} from '@schema/signinSchema';
 import {z} from 'zod';
 import {zodResolver} from '@hookform/resolvers/zod';
-import ErrorComponent from 'components/ErrorComponent';
-import Header from 'components/Header';
+import Icon from '@react-native-vector-icons/fontawesome6';
+
+import PrimaryButton from '@components/PrimaryButton';
+import InputComponent from '@components/InputComponent';
+import ErrorComponent from '@components/ErrorComponent';
+import Header from '@components/Header';
+import {AuthStackParamList} from '@navigation/AuthStack';
+
+import {Colors} from '@constants/Colors';
+import {SignInSchema} from '@schema/signinSchema';
 
 type SignInSchemaType = z.infer<typeof SignInSchema>;
 
-const SignInScreen = () => {
+interface SignInScreenProps {
+  navigation: NativeStackNavigationProp<AuthStackParamList, 'SignIn'>;
+}
+
+const SignInScreen: FC<SignInScreenProps> = () => {
   const [isPasswordHidden, setIsPasswordHidden] = useState<boolean>(true);
   const {
     control,

@@ -1,9 +1,9 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import useAppFirstLaunch from 'hooks/useAppFirstLaunch';
-import OnboardingScreen from 'screens/auth/OnboardingScreen';
-import SignInScreen from 'screens/auth/SignInScreen';
-import SignUpScreen from 'screens/auth/SignUpScreen';
-import VerificationScreen from 'screens/auth/VerificationScreen';
+import useAppFirstLaunch from '@hooks/useAppFirstLaunch';
+import OnboardingScreen from '@screens/auth/OnboardingScreen';
+import SignInScreen from '@screens/auth/SignInScreen';
+import SignUpScreen from '@screens/auth/SignUpScreen';
+import VerificationScreen from '@screens/auth/VerificationScreen';
 
 export type AuthStackParamList = {
   Onboarding: undefined;

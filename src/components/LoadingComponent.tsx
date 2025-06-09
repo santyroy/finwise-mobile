@@ -1,6 +1,6 @@
-import {Colors} from 'constants/colors';
 import {FC} from 'react';
 import {ActivityIndicator, Modal, StyleSheet, Text, View} from 'react-native';
+import {Colors} from '@constants/Colors';
 
 interface LoadingComponentProps {
   message?: string;

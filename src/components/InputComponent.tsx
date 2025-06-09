@@ -1,6 +1,6 @@
 import {StyleSheet, TextInput, TextInputProps} from 'react-native';
 import {Control, Controller, FieldPath, FieldValues} from 'react-hook-form';
-import {Colors} from 'constants/colors';
+import {Colors} from '@constants/Colors';
 
 interface InputComponentProps<T extends FieldValues> extends TextInputProps {
   name: FieldPath<T>;

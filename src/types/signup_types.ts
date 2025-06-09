@@ -1,4 +1,4 @@
-import {SignUpSchema} from 'schema/signupSchema';
+import {SignUpSchema} from '@schema/signupSchema';
 import {z} from 'zod';
 
 export type SignupRequest = z.infer<typeof SignUpSchema>;

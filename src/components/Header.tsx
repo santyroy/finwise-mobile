@@ -1,6 +1,6 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React, {FC} from 'react';
-import {Colors} from 'constants/colors';
+import {Colors} from '@constants/Colors';
 
 interface HeaderProps {
   title: string;

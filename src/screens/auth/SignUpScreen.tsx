@@ -9,7 +9,7 @@ import Icon from '@react-native-vector-icons/fontawesome6';
 import {useForm, SubmitHandler} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
 
-import {Colors} from '@constants/colors';
+import {Colors} from '@constants/Colors';
 import {SignupRequest} from 'types/signup_types';
 
 import PrimaryButton from '@components/PrimaryButton';

@@ -1,3 +1,4 @@
+import {useState, useRef} from 'react';
 import {
   FlatList,
   Image,
@@ -9,14 +10,16 @@ import {
   View,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {slides} from 'constants/onboarding';
-import {useRef, useState} from 'react';
-import {Colors} from 'constants/colors';
-import PrimaryButton from 'components/PrimaryButton';
-import SecondaryButton from 'components/SecondaryButton';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {AuthStackParamList} from 'navigation/AuthStack';
+
+import PrimaryButton from '@components/PrimaryButton';
+import SecondaryButton from '@components/SecondaryButton';
+
+import {slides} from '@constants/Onboarding';
+import {Colors} from '@constants/Colors';
+
+import {AuthStackParamList} from '@navigation/AuthStack';
 
 type OnboardingScreenNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
