@@ -16,7 +16,7 @@ import PrimaryButton from '@components/PrimaryButton';
 import InputComponent from '@components/InputComponent';
 import ErrorComponent from '@components/ErrorComponent';
 import Header from '@components/Header';
-import LoadingComponent from '@components/LoadingComponent';
+import LoadingComponent from '@components/LoadingModalComponent';
 
 import {SignUpSchema} from '@schema/signupSchema';
 import {AuthStackParamList} from '@navigation/AuthStack';
