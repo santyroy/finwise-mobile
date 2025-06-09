@@ -1,0 +1,92 @@
+import {FC} from 'react';
+import {
+  Modal,
+  ModalProps,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+import {Colors} from '@constants/Colors';
+import Icon from '@react-native-vector-icons/fontawesome6';
+
+interface ErrorModalComponentProps extends ModalProps {
+  message?: string;
+  onClose: (isError: boolean) => void;
+}
+
+const ErrorModalComponent: FC<ErrorModalComponentProps> = ({
+  message = 'Loading...',
+  onClose,
+  ...props
+}) => {
+  return (
+    <Modal
+      statusBarTranslucent
+      animationType="slide"
+      backdropColor={'rgba(0,0,0,0.3)'}
+      {...props}>
+      <View style={styles.container}>
+        <View style={[styles.modalContainer, styles.shadowProp]}>
+          <Icon
+            name="circle-xmark"
+            size={40}
+            color={Colors.red[100]}
+            iconStyle="solid"
+          />
+          <Text style={styles.modalText}>{message}</Text>
+          <Pressable
+            onPress={() => onClose(false)}
+            style={[styles.closeBtn, styles.shadowProp]}>
+            <Text style={styles.closeBtnText}>Try again</Text>
+          </Pressable>
+        </View>
+      </View>
+    </Modal>
+  );
+};
+
+export default ErrorModalComponent;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 10,
+  },
+  modalContainer: {
+    backgroundColor: Colors.base.light[100],
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 20,
+    paddingHorizontal: 30,
+    // boxShadow: '0px 0px 10px rgba(0,0,0,0.5)',
+  },
+  shadowProp: {
+    shadowColor: Colors.base.dark[25],
+    shadowOffset: {width: 5, height: 5},
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    elevation: 2,
+  },
+  modalText: {
+    fontSize: 18,
+    color: Colors.base.dark[25],
+    marginVertical: 20,
+    fontWeight: '600',
+    textAlign: 'center',
+  },
+  closeBtn: {
+    backgroundColor: Colors.red[100],
+    paddingVertical: 8,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+  },
+  closeBtnText: {
+    color: Colors.base.light[100],
+    fontWeight: 'bold',
+    letterSpacing: 1,
+  },
+});
