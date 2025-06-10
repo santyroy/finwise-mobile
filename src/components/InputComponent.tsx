@@ -22,6 +22,7 @@ function InputComponent<T extends FieldValues>({
         <TextInput
           placeholder={placeHolderText}
           placeholderTextColor={Colors.base.light[20]}
+          cursorColor={Colors.violet[100]}
           style={styles.input}
           onChangeText={onChange}
           onBlur={onBlur}
