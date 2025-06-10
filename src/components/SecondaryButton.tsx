@@ -25,7 +25,8 @@ const PRESSED_OPACITY = 0.5;
 const Button: FC<ButtonProps> = React.memo(
   ({title, textStyle, btnContainerStyle, btnStyle, ...props}) => {
     return (
-      <View style={[styles.buttonContainer, btnContainerStyle]}>
+      <View
+        style={[styles.buttonContainer, styles.shadowProp, btnContainerStyle]}>
         <Pressable
           style={({pressed}) => [
             pressed && Platform.OS === 'ios' && styles.buttonPressed,
@@ -61,5 +62,12 @@ const styles = StyleSheet.create({
     color: Colors.violet[100],
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  shadowProp: {
+    shadowColor: Colors.base.dark[25],
+    shadowOffset: {width: 0, height: 3},
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    elevation: 2,
   },
 });
