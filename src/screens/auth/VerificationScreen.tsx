@@ -8,39 +8,94 @@ import Header from '@components/Header';
 import OtpComponent from '@components/OtpComponent';
 import PrimaryButton from '@components/PrimaryButton';
 import CountDownComponent from '@components/CountDownComponent';
-import {AuthStackParamList} from '@navigation/AuthStack';
+import LoadingModalComponent from '@components/LoadingModalComponent';
+import ErrorModalComponent from '@components/ErrorModalComponent';
 
 import {Colors} from '@constants/Colors';
+import CustomError from 'data/CustomError';
+import {verifySignupUser} from '@services/auth';
+import {AuthStackParamList} from '@navigation/AuthStack';
+
+const OTP_EXP_TIME_SEC = 300;
 
 interface VerificationScreenProps {
   navigation: NativeStackNavigationProp<AuthStackParamList, 'Verification'>;
   route: RouteProp<AuthStackParamList, 'Verification'>;
 }
 
-const VerificationScreen: FC<VerificationScreenProps> = ({route}) => {
+const VerificationScreen: FC<VerificationScreenProps> = ({
+  route,
+  navigation,
+}) => {
   const [otp, setOtp] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(false);
+  const [error, setError] = useState<string>('');
+  const email = route.params.email;
+
+  const verifyOTP = async () => {
+    setIsLoading(true);
+    setIsError(false);
+    setError('');
+    try {
+      const value = otp.join('');
+      await verifySignupUser({otp: value, email: email});
+      navigation.navigate('SignIn');
+    } catch (err) {
+      setIsError(true);
+      if (err instanceof CustomError) {
+        setError(err.message);
+      } else {
+        setError('Something went wrong.');
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
+      {isLoading && (
+        <LoadingModalComponent
+          message="Verifying User..."
+          visible={isLoading}
+        />
+      )}
+      {isError && (
+        <ErrorModalComponent
+          message={error}
+          visible={isError}
+          onClose={setIsError}
+        />
+      )}
+
       <Header title="Verification" />
 
       <Text style={[styles.title]}>Enter your Verification Code</Text>
 
       <OtpComponent otp={otp} setOtp={setOtp} />
 
-      <CountDownComponent timeInSeconds={300} />
+      <CountDownComponent timeInSeconds={OTP_EXP_TIME_SEC} />
 
       <Text style={styles.emailVerificationText}>
         We send verification code to your email{' '}
-        <Text style={[styles.textHighlight]}>{route.params.email}</Text>. You
-        can check your inbox.
+        <Text style={[styles.textHighlight]}>{email}</Text>. You can check your
+        inbox.
       </Text>
 
       <Text style={[styles.textHighlight, styles.emailResendText]}>
         I didn’t received the code? Send again
       </Text>
 
-      <PrimaryButton title="Verify" />
+      {otp.length === 6 ? (
+        <PrimaryButton title="Verify" onPress={() => verifyOTP()} />
+      ) : (
+        <PrimaryButton
+          title="Verify"
+          disabled
+          btnContainerStyle={{backgroundColor: Colors.violet[40]}}
+        />
+      )}
     </SafeAreaView>
   );
 };
