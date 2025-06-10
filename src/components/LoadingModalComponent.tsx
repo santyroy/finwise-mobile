@@ -24,7 +24,7 @@ const LoadingModalComponent: FC<LoadingModalComponentProps> = ({
       statusBarTranslucent
       {...props}>
       <View style={styles.container}>
-        <View style={[styles.modalContainer, styles.shadowProp]}>
+        <View style={[styles.modalContainer]}>
           <Text style={styles.modalText}>{message}</Text>
           <ActivityIndicator color={Colors.violet[100]} size={'large'} />
         </View>
@@ -49,13 +49,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 30,
     paddingHorizontal: 20,
-  },
-  shadowProp: {
-    shadowColor: Colors.base.dark[25],
-    shadowOffset: {width: 5, height: 5},
-    shadowOpacity: 0.5,
-    shadowRadius: 5,
-    elevation: 2,
   },
   modalText: {
     fontSize: 18,

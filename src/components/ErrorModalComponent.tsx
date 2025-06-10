@@ -21,7 +21,7 @@ const ErrorModalComponent: FC<ErrorModalComponentProps> = ({
       backdropColor={'rgba(0,0,0,0.3)'}
       {...props}>
       <View style={styles.container}>
-        <View style={[styles.modalContainer, styles.shadowProp]}>
+        <View style={[styles.modalContainer]}>
           <Icon
             name="circle-xmark"
             size={40}
@@ -32,7 +32,7 @@ const ErrorModalComponent: FC<ErrorModalComponentProps> = ({
           <PrimaryButton
             title="Try again"
             onPress={() => onClose(false)}
-            btnStyle={[styles.closeBtn, styles.shadowProp]}
+            btnStyle={[styles.closeBtn]}
             textStyle={styles.closeBtnText}
           />
         </View>
@@ -59,13 +59,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     // boxShadow: '0px 0px 10px rgba(0,0,0,0.5)',
   },
-  shadowProp: {
-    shadowColor: Colors.base.dark[25],
-    shadowOffset: {width: 5, height: 5},
-    shadowOpacity: 0.5,
-    shadowRadius: 5,
-    elevation: 2,
-  },
   modalText: {
     fontSize: 18,
     color: Colors.base.dark[25],
@@ -82,6 +75,5 @@ const styles = StyleSheet.create({
   closeBtnText: {
     color: Colors.base.light[100],
     fontWeight: 'bold',
-    letterSpacing: 1,
   },
 });
