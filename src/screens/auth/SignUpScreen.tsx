@@ -110,13 +110,13 @@ const SignUpScreen: FC<SignUpScreenProps> = ({navigation}) => {
               hitSlop={20}
               onPress={() => setIsPasswordHidden(!isPasswordHidden)}>
               {isPasswordHidden ? (
+                <Icon name="eye" size={20} color={Colors.base.light[20]} />
+              ) : (
                 <Icon
                   name="eye-slash"
                   size={20}
                   color={Colors.base.light[20]}
                 />
-              ) : (
-                <Icon name="eye" size={20} color={Colors.base.light[20]} />
               )}
             </Pressable>
           </View>
