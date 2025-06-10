@@ -12,3 +12,10 @@ export const SignUpSchema = z.object({
     .string({message: 'Mobile number is mandatory'})
     .regex(/^\d{10}$/, {message: 'Mobile number must be exactly 10 digits'}),
 });
+
+export const VerifySignUpSchema = z.object({
+  otp: z
+    .string({message: 'OTP is mandatory'})
+    .regex(/^\d{6}$/, {message: 'OTP must be 6 digits'}),
+  email: z.string({message: 'Email is required'}).email('Invalid Email'),
+});
