@@ -1,7 +1,8 @@
 import axios from 'axios';
+import Config from 'react-native-config';
 
 const API = axios.create({
-  baseURL: 'http://192.168.29.53:8080',
+  baseURL: Config.API_BASE_URL,
   timeout: 5000,
   headers: {
     'Content-Type': 'application/json',
