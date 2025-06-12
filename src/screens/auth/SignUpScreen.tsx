@@ -47,7 +47,7 @@ const SignUpScreen: FC<SignUpScreenProps> = ({navigation}) => {
     setError('');
     try {
       const response = await signup(data);
-      const {email} = response;
+      const {email} = response.data;
       navigation.navigate('Verification', {email: email});
     } catch (err) {
       setIsError(true);

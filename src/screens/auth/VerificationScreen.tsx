@@ -84,7 +84,7 @@ const VerificationScreen: FC<VerificationScreenProps> = ({
       </Text>
 
       <Text style={[styles.textHighlight, styles.emailResendText]}>
-        I didn’t received the code? Send again
+        I didn't received the code? Send again
       </Text>
 
       {otp.length === 6 ? (
