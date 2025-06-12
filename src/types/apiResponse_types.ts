@@ -7,3 +7,9 @@ export interface ApiErrorResponse {
   details: string[];
   code: string;
 }
+
+export interface ApiResponse<T> {
+  success: boolean;
+  message: string;
+  data: T;
+}
