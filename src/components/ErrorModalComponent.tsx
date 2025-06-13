@@ -6,12 +6,12 @@ import PrimaryButton from './PrimaryButton';
 
 interface ErrorModalComponentProps extends ModalProps {
   message?: string;
-  onClose: (isError: boolean) => void;
+  onPress: () => void;
 }
 
 const ErrorModalComponent: FC<ErrorModalComponentProps> = ({
   message = 'Loading...',
-  onClose,
+  onPress,
   ...props
 }) => {
   return (
@@ -31,7 +31,7 @@ const ErrorModalComponent: FC<ErrorModalComponentProps> = ({
           <Text style={styles.modalText}>{message}</Text>
           <PrimaryButton
             title="Try again"
-            onPress={() => onClose(false)}
+            onPress={onPress}
             btnStyle={[styles.closeBtn]}
             textStyle={styles.closeBtnText}
           />
