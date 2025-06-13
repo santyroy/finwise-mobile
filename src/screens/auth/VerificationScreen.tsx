@@ -65,7 +65,7 @@ const VerificationScreen: FC<VerificationScreenProps> = ({
         <ErrorModalComponent
           message={error}
           visible={isError}
-          onClose={setIsError}
+          onPress={() => setIsError(false)}
         />
       )}
 
