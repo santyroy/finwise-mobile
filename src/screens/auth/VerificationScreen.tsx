@@ -7,7 +7,7 @@ import {RouteProp} from '@react-navigation/native';
 import Header from '@components/Header';
 import OtpComponent from '@components/OtpComponent';
 import PrimaryButton from '@components/PrimaryButton';
-import CountDownComponent from '@components/CountDownComponent';
+import OTPCountDownComponent from '@components/OTPCountDownComponent';
 import LoadingModalComponent from '@components/LoadingModalComponent';
 import ErrorModalComponent from '@components/ErrorModalComponent';
 
@@ -15,8 +15,6 @@ import {Colors} from '@constants/Colors';
 import CustomError from 'data/CustomError';
 import {verifySignupUser} from '@services/auth';
 import {AuthStackParamList} from '@navigation/AuthStack';
-
-const OTP_EXP_TIME_SEC = 300;
 
 interface VerificationScreenProps {
   navigation: NativeStackNavigationProp<AuthStackParamList, 'Verification'>;
@@ -31,6 +29,7 @@ const VerificationScreen: FC<VerificationScreenProps> = ({
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
+
   const email = route.params.email;
 
   const verifyOTP = async () => {
@@ -75,17 +74,7 @@ const VerificationScreen: FC<VerificationScreenProps> = ({
 
       <OtpComponent otp={otp} setOtp={setOtp} />
 
-      <CountDownComponent timeInSeconds={OTP_EXP_TIME_SEC} />
-
-      <Text style={styles.emailVerificationText}>
-        We send verification code to your email{' '}
-        <Text style={[styles.textHighlight]}>{email}</Text>. You can check your
-        inbox.
-      </Text>
-
-      <Text style={[styles.textHighlight, styles.emailResendText]}>
-        I didn't received the code? Send again
-      </Text>
+      <OTPCountDownComponent email={email} />
 
       {otp.length === 6 ? (
         <PrimaryButton title="Verify" onPress={() => verifyOTP()} />
@@ -115,18 +104,4 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   marginTop40: {marginTop: 40},
-  emailVerificationText: {
-    marginVertical: 20,
-    lineHeight: 20,
-    fontWeight: '500',
-    color: Colors.base.dark[25],
-  },
-  emailResendText: {
-    textDecorationLine: 'underline',
-    marginBottom: 40,
-  },
-  textHighlight: {
-    color: Colors.violet[100],
-    fontWeight: '500',
-  },
 });
