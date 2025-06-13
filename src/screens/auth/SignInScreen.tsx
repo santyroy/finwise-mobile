@@ -13,9 +13,13 @@ import InputComponent from '@components/InputComponent';
 import ErrorComponent from '@components/ErrorComponent';
 import Header from '@components/Header';
 import {AuthStackParamList} from '@navigation/AuthStack';
+import LoadingModalComponent from '@components/LoadingModalComponent';
+import ErrorModalComponent from '@components/ErrorModalComponent';
 
 import {Colors} from '@constants/Colors';
 import {SignInSchema} from '@schema/signinSchema';
+import {signin} from '@services/auth';
+import CustomError from '@data/CustomError';
 
 type SignInSchemaType = z.infer<typeof SignInSchema>;
 
@@ -25,15 +29,42 @@ interface SignInScreenProps {
 
 const SignInScreen: FC<SignInScreenProps> = () => {
   const [isPasswordHidden, setIsPasswordHidden] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(false);
+  const [error, setError] = useState<string>('');
   const {
     control,
     handleSubmit,
     formState: {errors},
   } = useForm<SignInSchemaType>({resolver: zodResolver(SignInSchema)});
 
-  const onSubmit: SubmitHandler<SignInSchemaType> = data => console.log(data);
+  const onSubmit: SubmitHandler<SignInSchemaType> = async data => {
+    setIsLoading(true);
+    setIsError(false);
+    setError('');
+    try {
+      const reseponse = await signin(data);
+      console.log(reseponse);
+    } catch (err) {
+      setIsError(true);
+      if (err instanceof CustomError) {
+        setError(err.message);
+      } else {
+        setError('Something went wrong!');
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
   return (
     <SafeAreaView style={styles.container}>
+      {isLoading && <LoadingModalComponent message="Signing In..." />}
+      {isError && (
+        <ErrorModalComponent
+          message={error}
+          onPress={() => setIsError(false)}
+        />
+      )}
       <View>
         <Header title="Sign In" />
       </View>
@@ -62,13 +93,13 @@ const SignInScreen: FC<SignInScreenProps> = () => {
               hitSlop={20}
               onPress={() => setIsPasswordHidden(!isPasswordHidden)}>
               {isPasswordHidden ? (
+                <Icon name="eye" size={20} color={Colors.base.light[20]} />
+              ) : (
                 <Icon
                   name="eye-slash"
                   size={20}
                   color={Colors.base.light[20]}
                 />
-              ) : (
-                <Icon name="eye" size={20} color={Colors.base.light[20]} />
               )}
             </Pressable>
           </View>
