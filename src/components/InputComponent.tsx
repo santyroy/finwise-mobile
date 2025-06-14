@@ -1,3 +1,4 @@
+import {useState} from 'react';
 import {StyleSheet, TextInput, TextInputProps} from 'react-native';
 import {Control, Controller, FieldPath, FieldValues} from 'react-hook-form';
 import {Colors} from '@constants/Colors';
@@ -14,6 +15,8 @@ function InputComponent<T extends FieldValues>({
   control,
   ...props
 }: InputComponentProps<T>) {
+  const [isFocus, setIsFocus] = useState<boolean>(false);
+
   return (
     <Controller
       name={name}
@@ -23,9 +26,13 @@ function InputComponent<T extends FieldValues>({
           placeholder={placeHolderText}
           placeholderTextColor={Colors.base.light[20]}
           cursorColor={Colors.violet[100]}
-          style={styles.input}
+          style={[styles.input, isFocus && styles.focusBorder]}
           onChangeText={onChange}
-          onBlur={onBlur}
+          onBlur={() => {
+            onBlur();
+            setIsFocus(false);
+          }}
+          onFocus={() => setIsFocus(true)}
           value={value}
           {...props}
         />
@@ -45,5 +52,8 @@ const styles = StyleSheet.create({
     borderColor: Colors.base.light[40],
     borderRadius: 15,
     color: Colors.base.dark[100],
+  },
+  focusBorder: {
+    borderColor: Colors.violet[100],
   },
 });
