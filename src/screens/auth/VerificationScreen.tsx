@@ -12,6 +12,7 @@ import LoadingModalComponent from '@components/LoadingModalComponent';
 import ErrorModalComponent from '@components/ErrorModalComponent';
 
 import {Colors} from '@constants/Colors';
+import {OtpPurpose} from '@constants/OtpPurpose';
 import CustomError from 'data/CustomError';
 import {verifySignupUser} from '@services/auth';
 import {AuthStackParamList} from '@navigation/AuthStack';
@@ -38,7 +39,11 @@ const VerificationScreen: FC<VerificationScreenProps> = ({
     setError('');
     try {
       const value = otp.join('');
-      await verifySignupUser({otp: value, email: email});
+      await verifySignupUser({
+        otp: value,
+        email: email,
+        otpPurpose: OtpPurpose.ACCOUNT_VERIFICATION,
+      });
       navigation.navigate('SignIn');
     } catch (err) {
       setIsError(true);
