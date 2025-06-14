@@ -1,7 +1,12 @@
 import {FC, useEffect, useState} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {Config} from 'react-native-config';
+
+import ErrorModalComponent from '@components/ErrorModalComponent';
+
 import {Colors} from '@constants/Colors';
+import {resendOTP} from '@services/auth';
+import CustomError from '@data/CustomError';
 
 const expTimeSeconds = parseInt(Config.OTP_EXP_TIME_SEC, 10);
 
@@ -12,6 +17,8 @@ interface OTPCountDownComponentProps {
 const OTPCountDownComponent: FC<OTPCountDownComponentProps> = ({email}) => {
   const [time, setTime] = useState(expTimeSeconds);
   const [isResendOTPAllowed, setIsResendOTPAllowed] = useState<boolean>(false);
+  const [isError, setIsError] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     // run every second
@@ -26,10 +33,22 @@ const OTPCountDownComponent: FC<OTPCountDownComponentProps> = ({email}) => {
     }
   }, [time]);
 
-  const handleResendOTP = () => {
+  const handleResendOTP = async () => {
     setIsResendOTPAllowed(false);
     setTime(expTimeSeconds);
     // make API call to resend OTP
+    setIsError(false);
+    setError('');
+    try {
+      await resendOTP({email: email});
+    } catch (err) {
+      setIsError(true);
+      if (err instanceof CustomError) {
+        setError(err.message);
+      } else {
+        setError('Something went wrong!');
+      }
+    }
   };
 
   const minutes = Math.floor(time / 60);
@@ -61,6 +80,13 @@ const OTPCountDownComponent: FC<OTPCountDownComponentProps> = ({email}) => {
           onPress={handleResendOTP}>
           I didn't received the code? Send again
         </Text>
+      )}
+
+      {isError && (
+        <ErrorModalComponent
+          message={error}
+          onPress={() => setIsError(false)}
+        />
       )}
     </>
   );
