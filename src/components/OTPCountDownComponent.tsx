@@ -1,15 +1,16 @@
 import {FC, useEffect, useState} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
+import {Config} from 'react-native-config';
 import {Colors} from '@constants/Colors';
 
-const OTP_EXP_TIME_SEC = 15;
+const expTimeSeconds = parseInt(Config.OTP_EXP_TIME_SEC, 10);
 
 interface OTPCountDownComponentProps {
   email: string;
 }
 
 const OTPCountDownComponent: FC<OTPCountDownComponentProps> = ({email}) => {
-  const [time, setTime] = useState(OTP_EXP_TIME_SEC);
+  const [time, setTime] = useState(expTimeSeconds);
   const [isResendOTPAllowed, setIsResendOTPAllowed] = useState<boolean>(false);
 
   useEffect(() => {
@@ -27,7 +28,7 @@ const OTPCountDownComponent: FC<OTPCountDownComponentProps> = ({email}) => {
 
   const handleResendOTP = () => {
     setIsResendOTPAllowed(false);
-    setTime(OTP_EXP_TIME_SEC);
+    setTime(expTimeSeconds);
     // make API call to resend OTP
   };
 
