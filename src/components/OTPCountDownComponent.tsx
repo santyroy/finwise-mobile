@@ -5,6 +5,7 @@ import {Config} from 'react-native-config';
 import ErrorModalComponent from '@components/ErrorModalComponent';
 
 import {Colors} from '@constants/Colors';
+import {OtpPurpose} from '@constants/OtpPurpose';
 import {resendOTP} from '@services/auth';
 import CustomError from '@data/CustomError';
 
@@ -40,7 +41,10 @@ const OTPCountDownComponent: FC<OTPCountDownComponentProps> = ({email}) => {
     setIsError(false);
     setError('');
     try {
-      await resendOTP({email: email});
+      await resendOTP({
+        email: email,
+        otpPurpose: OtpPurpose.ACCOUNT_VERIFICATION,
+      });
     } catch (err) {
       setIsError(true);
       if (err instanceof CustomError) {
