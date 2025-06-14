@@ -6,3 +6,7 @@ export const VerifyOTPSchema = z.object({
     .regex(/^\d{6}$/, {message: 'OTP must be 6 digits'}),
   email: z.string({message: 'Email is required'}).email('Invalid Email'),
 });
+
+export const ResendOTPSchema = z.object({
+  email: z.string({message: 'Email is required'}).email('Invalid Email'),
+});
