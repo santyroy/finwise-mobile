@@ -4,7 +4,7 @@ import {handleApiError} from '@utils/apiUtils';
 import {ApiResponse} from 'types/apiResponse_types';
 import {SignupRequest, SignupResponse} from 'types/signup_types';
 import {SignInRequest, SignInResponse} from 'types/signin_types';
-import {VerifyOTPRequest} from 'types/verifyotp_types';
+import {ResendOTPRequest, VerifyOTPRequest} from 'types/verifyotp_types';
 
 // signup user
 export const signup = async (
@@ -16,7 +16,7 @@ export const signup = async (
     if (!responseData || !responseData.success) {
       throw new CustomError(500, 'Malformed API Response');
     }
-    return response.data;
+    return responseData;
   } catch (error: unknown) {
     handleApiError(error);
     return Promise.reject(error);
@@ -33,7 +33,7 @@ export const verifySignupUser = async (
     if (!responseData || !responseData.success) {
       throw new CustomError(500, 'Malformed API Response');
     }
-    return response.data;
+    return responseData;
   } catch (error: unknown) {
     handleApiError(error);
     return Promise.reject(error);
@@ -52,6 +52,23 @@ export const signin = async (
     }
     return responseData;
   } catch (error: unknown) {
+    handleApiError(error);
+    return Promise.reject(error);
+  }
+};
+
+// resend OTP
+export const resendOTP = async (
+  data: ResendOTPRequest,
+): Promise<ApiResponse<string>> => {
+  try {
+    const response = await API.post('/api/v1/auth/resendOtp', data);
+    const responseData = response.data as ApiResponse<string>;
+    if (!responseData || !responseData.success) {
+      throw new CustomError(500, 'Malformed API Response');
+    }
+    return responseData;
+  } catch (error) {
     handleApiError(error);
     return Promise.reject(error);
   }
