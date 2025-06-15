@@ -4,12 +4,14 @@ import OnboardingScreen from '@screens/auth/OnboardingScreen';
 import SignInScreen from '@screens/auth/SignInScreen';
 import SignUpScreen from '@screens/auth/SignUpScreen';
 import VerificationScreen from '@screens/auth/VerificationScreen';
+import ForgotPassword from 'screens/auth/ForgotPassword';
 
 export type AuthStackParamList = {
   Onboarding: undefined;
   SignUp: undefined;
   SignIn: undefined;
   Verification: {email: string};
+  ForgotPassword: undefined;
 };
 
 const Stack = createNativeStackNavigator<AuthStackParamList>();
@@ -28,6 +30,7 @@ const AuthStack = () => {
       <Stack.Screen name="SignUp" component={SignUpScreen} />
       <Stack.Screen name="SignIn" component={SignInScreen} />
       <Stack.Screen name="Verification" component={VerificationScreen} />
+      <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
     </Stack.Navigator>
   );
 };
