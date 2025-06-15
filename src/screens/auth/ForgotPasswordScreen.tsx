@@ -11,17 +11,17 @@ import Header from '@components/Header';
 import BackButton from '@components/BackButton';
 import InputComponent from '@components/InputComponent';
 import PrimaryButton from '@components/PrimaryButton';
+import ErrorComponent from '@components/ErrorComponent';
 import {Colors} from '@constants/Colors';
 import {ForgotPasswordSchema} from '@schema/forgotPasswordSchema';
-import ErrorComponent from 'components/ErrorComponent';
 
-interface ForgotPasswordProps {
+interface ForgotPasswordScreenProps {
   navigation: NativeStackNavigationProp<AuthStackParamList, 'ForgotPassword'>;
 }
 
 type ForgotPasswordRequest = z.infer<typeof ForgotPasswordSchema>;
 
-const ForgotPassword: FC<ForgotPasswordProps> = ({navigation}) => {
+const ForgotPasswordScreen: FC<ForgotPasswordScreenProps> = ({navigation}) => {
   const {
     control,
     handleSubmit,
@@ -31,7 +31,7 @@ const ForgotPassword: FC<ForgotPasswordProps> = ({navigation}) => {
   });
 
   const onSubmit: SubmitHandler<ForgotPasswordRequest> = data =>
-    console.log(data);
+    navigation.navigate('ResetPassword', {email: data.email});
 
   return (
     <SafeAreaView style={styles.container}>
@@ -60,7 +60,7 @@ const ForgotPassword: FC<ForgotPasswordProps> = ({navigation}) => {
   );
 };
 
-export default ForgotPassword;
+export default ForgotPasswordScreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -75,6 +75,7 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 24,
     fontWeight: 'bold',
+    color: Colors.base.dark[50],
   },
   form: {
     marginTop: 40,
