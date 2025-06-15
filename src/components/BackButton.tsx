@@ -17,6 +17,7 @@ export default BackButton;
 const styles = StyleSheet.create({
   headerBackButton: {
     position: 'absolute',
-    left: 20,
+    top: 0,
+    left: 0,
   },
 });
