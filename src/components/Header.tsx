@@ -20,7 +20,6 @@ const styles = StyleSheet.create({
   header: {
     alignItems: 'center',
     justifyContent: 'center',
-    position: 'relative',
   },
   headerTitle: {fontSize: 18, fontWeight: 'bold', color: Colors.base.dark[50]},
 });
