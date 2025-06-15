@@ -154,11 +154,13 @@ const styles = StyleSheet.create({
   input: {
     width: 40,
     height: 40,
-    backgroundColor: Colors.base.light['60'],
+    backgroundColor: Colors.base.light[60],
     color: Colors.violet[100],
     borderRadius: 20,
     fontSize: 16,
     fontWeight: 'bold',
-    textAlign: 'center',
+    textAlign: 'center', // horizontally centers the text
+    textAlignVertical: 'center', // vertically centers the text (only works on Android)
+    lineHeight: 40, // same as height for vertical centering hack (works on iOS)
   },
 });
