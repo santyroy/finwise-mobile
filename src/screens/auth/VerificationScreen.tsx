@@ -1,5 +1,5 @@
 import {FC, useState} from 'react';
-import {StyleSheet, Text} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RouteProp} from '@react-navigation/native';
@@ -77,7 +77,9 @@ const VerificationScreen: FC<VerificationScreenProps> = ({
 
       <Text style={[styles.title]}>Enter your Verification Code</Text>
 
-      <OtpComponent otp={otp} setOtp={setOtp} />
+      <View style={styles.otpContainer}>
+        <OtpComponent otp={otp} setOtp={setOtp} />
+      </View>
 
       <OTPCountDownComponent email={email} />
 
@@ -108,5 +110,5 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     marginTop: 20,
   },
-  marginTop40: {marginTop: 40},
+  otpContainer: {marginVertical: 40},
 });

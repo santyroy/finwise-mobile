@@ -7,7 +7,7 @@ interface OtpComponentProps {
   setOtp: (otp: string[]) => void;
 }
 
-const OtpComponent2: FC<OtpComponentProps> = ({otp, setOtp}) => {
+const OtpComponent: FC<OtpComponentProps> = ({otp, setOtp}) => {
   const ref1 = useRef<TextInput>(null);
   const ref2 = useRef<TextInput>(null);
   const ref3 = useRef<TextInput>(null);
@@ -142,14 +142,13 @@ const OtpComponent2: FC<OtpComponentProps> = ({otp, setOtp}) => {
   );
 };
 
-export default OtpComponent2;
+export default OtpComponent;
 
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 10,
-    marginVertical: 30,
   },
   input: {
     width: 40,
