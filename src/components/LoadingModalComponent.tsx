@@ -20,7 +20,7 @@ const LoadingModalComponent: FC<LoadingModalComponentProps> = ({
   return (
     <Modal
       backdropColor={'rgba(0,0,0,0.3)'}
-      animationType="slide"
+      animationType="fade"
       statusBarTranslucent
       {...props}>
       <View style={styles.container}>

@@ -17,7 +17,7 @@ const ErrorModalComponent: FC<ErrorModalComponentProps> = ({
   return (
     <Modal
       statusBarTranslucent
-      animationType="slide"
+      animationType="fade"
       backdropColor={'rgba(0,0,0,0.3)'}
       {...props}>
       <View style={styles.container}>
