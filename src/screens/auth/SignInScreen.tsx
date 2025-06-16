@@ -4,7 +4,6 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {Link} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {SubmitHandler, useForm} from 'react-hook-form';
-import {z} from 'zod';
 import {zodResolver} from '@hookform/resolvers/zod';
 import Icon from '@react-native-vector-icons/fontawesome6';
 
@@ -20,8 +19,7 @@ import {Colors} from '@constants/Colors';
 import {SignInSchema} from '@schema/signinSchema';
 import {signin} from '@services/auth';
 import CustomError from '@data/CustomError';
-
-type SignInSchemaType = z.infer<typeof SignInSchema>;
+import {SignInRequest} from 'types/signin_types';
 
 interface SignInScreenProps {
   navigation: NativeStackNavigationProp<AuthStackParamList, 'SignIn'>;
@@ -36,9 +34,9 @@ const SignInScreen: FC<SignInScreenProps> = () => {
     control,
     handleSubmit,
     formState: {errors},
-  } = useForm<SignInSchemaType>({resolver: zodResolver(SignInSchema)});
+  } = useForm<SignInRequest>({resolver: zodResolver(SignInSchema)});
 
-  const onSubmit: SubmitHandler<SignInSchemaType> = async data => {
+  const onSubmit: SubmitHandler<SignInRequest> = async data => {
     setIsLoading(true);
     setIsError(false);
     setError('');
