@@ -4,22 +4,21 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {AuthStackParamList} from 'navigation/AuthStack';
 import {SubmitHandler, useForm} from 'react-hook-form';
-import {z} from 'zod';
 import {zodResolver} from '@hookform/resolvers/zod';
+
+import {Colors} from '@constants/Colors';
+import {ForgotPasswordSchema} from '@schema/forgotPasswordSchema';
+import {ForgotPasswordRequest} from 'types/forgotPassword_types';
 
 import Header from '@components/Header';
 import BackButton from '@components/BackButton';
 import InputComponent from '@components/InputComponent';
 import PrimaryButton from '@components/PrimaryButton';
 import ErrorComponent from '@components/ErrorComponent';
-import {Colors} from '@constants/Colors';
-import {ForgotPasswordSchema} from '@schema/forgotPasswordSchema';
 
 interface ForgotPasswordScreenProps {
   navigation: NativeStackNavigationProp<AuthStackParamList, 'ForgotPassword'>;
 }
-
-type ForgotPasswordRequest = z.infer<typeof ForgotPasswordSchema>;
 
 const ForgotPasswordScreen: FC<ForgotPasswordScreenProps> = ({navigation}) => {
   const {
