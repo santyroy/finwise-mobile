@@ -7,12 +7,15 @@ import {SubmitHandler, useForm} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
 
 import {Colors} from '@constants/Colors';
+import {OtpPurpose} from '@constants/OtpPurpose';
 import {AuthStackParamList} from '@navigation/AuthStack';
 import {
   ResetPasswordRequest,
   ResetPasswordSchemaType,
 } from 'types/forgotPassword_types';
 import {ResetPasswordSchema} from '@schema/forgotPasswordSchema';
+import {resetPassword} from '@services/auth';
+import CustomError from '@data/CustomError';
 
 import Header from '@components/Header';
 import BackButton from '@components/BackButton';
@@ -20,6 +23,8 @@ import OtpComponent from '@components/OtpComponent';
 import InputComponent from '@components/InputComponent';
 import PrimaryButton from '@components/PrimaryButton';
 import ErrorComponent from '@components/ErrorComponent';
+import LoadingModalComponent from '@components/LoadingModalComponent';
+import ErrorModalComponent from '@components/ErrorModalComponent';
 
 interface ResetPasswordScreenProps {
   navigation: NativeStackNavigationProp<AuthStackParamList, 'ResetPassword'>;
@@ -31,6 +36,9 @@ const ResetPasswordScreen: FC<ResetPasswordScreenProps> = ({
   route,
 }) => {
   const [otp, setOtp] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(false);
+  const [error, setError] = useState<string>('');
   const {
     control,
     handleSubmit,
@@ -48,10 +56,11 @@ const ResetPasswordScreen: FC<ResetPasswordScreenProps> = ({
     return /^\d{6}$/.test(otpString);
   };
 
-  const onSubmit: SubmitHandler<ResetPasswordSchemaType> = data => {
+  const onSubmit: SubmitHandler<ResetPasswordSchemaType> = async data => {
+    setIsLoading(true);
+    setIsError(false);
+    setError('');
     const isValid = isOTPValid();
-    console.log(otp);
-    console.log(isValid);
     if (!isValid) {
       return;
     }
@@ -61,12 +70,33 @@ const ResetPasswordScreen: FC<ResetPasswordScreenProps> = ({
       email: data.email,
       newPassword: data.newPassword,
       confirmPassword: data.confirmPassword,
+      otpPurpose: OtpPurpose.PASSWORD_RESET,
     };
-    console.log(apiRequest);
+
+    try {
+      await resetPassword(apiRequest);
+      navigation.navigate('SignIn');
+    } catch (err) {
+      setIsError(true);
+      if (err instanceof CustomError) {
+        setError(err.message);
+      } else {
+        setError('Something went wrong!');
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <SafeAreaView style={styles.container}>
+      {isLoading && <LoadingModalComponent message="Processing..." />}
+      {isError && (
+        <ErrorModalComponent
+          message={error}
+          onPress={() => setIsError(false)}
+        />
+      )}
       <View>
         <BackButton onPress={() => navigation.goBack()} />
         <Header title="Reset Password" />
@@ -86,6 +116,7 @@ const ResetPasswordScreen: FC<ResetPasswordScreenProps> = ({
               placeHolderText="New Password"
               name="newPassword"
               control={control}
+              secureTextEntry={true}
             />
             {errors.newPassword && (
               <ErrorComponent error={errors.newPassword} />
@@ -96,6 +127,7 @@ const ResetPasswordScreen: FC<ResetPasswordScreenProps> = ({
               placeHolderText="Confirm Password"
               name="confirmPassword"
               control={control}
+              secureTextEntry={true}
             />
             {errors.confirmPassword && (
               <ErrorComponent error={errors.confirmPassword} />
