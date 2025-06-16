@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
   marginTop30: {marginTop: 30},
   forgotPasswordLink: {
     color: Colors.violet[100],
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
     textAlign: 'center',
     marginTop: 10,

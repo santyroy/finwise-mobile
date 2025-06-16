@@ -149,7 +149,7 @@ const SignUpScreen: FC<SignUpScreenProps> = ({navigation}) => {
             tintColors={{true: Colors.violet[100], false: Colors.violet[100]}}
           />
           <View>
-            <Text>
+            <Text style={styles.termAndConditionText}>
               By signing up, you agree to the{' '}
               <Text style={{color: Colors.violet[100]}}>
                 Terms of Service and Privacy Policy
@@ -204,6 +204,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     maxWidth: '90%',
     gap: 5,
+  },
+  termAndConditionText: {
+    fontSize: 14,
+    lineHeight: 18,
   },
   marginTop30: {marginTop: 30},
   forgotPasswordLink: {

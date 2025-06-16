@@ -102,15 +102,17 @@ const styles = StyleSheet.create({
   time: {
     color: Colors.violet[100],
     fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: 18,
   },
   emailVerificationText: {
+    fontSize: 16,
     marginVertical: 20,
     lineHeight: 20,
     fontWeight: '500',
     color: Colors.base.dark[25],
   },
   emailResendText: {
+    fontSize: 16,
     textDecorationLine: 'underline',
     marginBottom: 40,
   },

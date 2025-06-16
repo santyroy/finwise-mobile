@@ -1,4 +1,4 @@
-import {useState, useRef} from 'react';
+import {FC, useState, useRef} from 'react';
 import {
   FlatList,
   Image,
@@ -26,7 +26,7 @@ type OnboardingScreenNavigationProp = NativeStackNavigationProp<
   'Onboarding'
 >;
 
-const OnboardingScreen = () => {
+const OnboardingScreen: FC = () => {
   const {height, width} = useWindowDimensions();
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const ref = useRef<FlatList>(null);
@@ -140,7 +140,8 @@ const styles = StyleSheet.create({
     height: '75%',
   },
   slideTitle: {
-    fontSize: 28,
+    fontSize: 32,
+    lineHeight: 39,
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 10,
@@ -159,16 +160,20 @@ const styles = StyleSheet.create({
   indicatorContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
+    alignItems: 'center',
     gap: 15,
   },
   indicator: {
-    height: 10,
-    width: 10,
+    height: 8,
+    width: 8,
     backgroundColor: Colors.violet[20],
-    borderRadius: 5,
+    borderRadius: 4,
   },
   indicatorActive: {
     backgroundColor: Colors.violet[100],
+    height: 14,
+    width: 14,
+    borderRadius: 7,
   },
 
   // Button
