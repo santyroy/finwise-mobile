@@ -5,8 +5,8 @@ import {
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import AppStack, {AppStackParamList} from './AppStack';
 import AuthStack, {AuthStackParamList} from './AuthStack';
-import {useUserStore} from 'store/UserStore';
-import {selectUserIsLoggedIn} from 'store/UserSelectors';
+import {useUserStore} from '@store/UserStore';
+import {selectUserIsLoggedIn} from '@store/UserSelectors';
 
 export type RootStackParamList = {
   Auth: NavigatorScreenParams<AuthStackParamList>;
