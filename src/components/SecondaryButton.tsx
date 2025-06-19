@@ -22,7 +22,7 @@ interface ButtonProps extends PressableProps {
 const RIPPLE_COLOR = Colors.violet[40];
 const PRESSED_OPACITY = 0.5;
 
-const Button: FC<ButtonProps> = React.memo(
+const SecondaryButton: FC<ButtonProps> = React.memo(
   ({title, textStyle, btnContainerStyle, btnStyle, ...props}) => {
     return (
       <View
@@ -42,7 +42,7 @@ const Button: FC<ButtonProps> = React.memo(
   },
 );
 
-export default Button;
+export default SecondaryButton;
 
 const styles = StyleSheet.create({
   buttonContainer: {
