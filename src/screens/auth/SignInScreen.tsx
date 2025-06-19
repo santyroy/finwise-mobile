@@ -11,7 +11,6 @@ import PrimaryButton from '@components/PrimaryButton';
 import InputComponent from '@components/InputComponent';
 import ErrorComponent from '@components/ErrorComponent';
 import Header from '@components/Header';
-import {AuthStackParamList} from '@navigation/AuthStack';
 import LoadingModalComponent from '@components/LoadingModalComponent';
 import ErrorModalComponent from '@components/ErrorModalComponent';
 
@@ -20,12 +19,14 @@ import {SignInSchema} from '@schema/signinSchema';
 import {signin} from '@services/auth';
 import CustomError from '@data/CustomError';
 import {SignInRequest} from 'types/signin_types';
+import {useUserStore} from '@store/UserStore';
+import {RootStackParamList} from '@navigation/RootNavigator';
 
 interface SignInScreenProps {
-  navigation: NativeStackNavigationProp<AuthStackParamList, 'SignIn'>;
+  navigation: NativeStackNavigationProp<RootStackParamList, 'Auth'>;
 }
 
-const SignInScreen: FC<SignInScreenProps> = () => {
+const SignInScreen: FC<SignInScreenProps> = ({navigation}) => {
   const [isPasswordHidden, setIsPasswordHidden] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
@@ -36,13 +37,19 @@ const SignInScreen: FC<SignInScreenProps> = () => {
     formState: {errors},
   } = useForm<SignInRequest>({resolver: zodResolver(SignInSchema)});
 
+  const {setUser} = useUserStore();
+
   const onSubmit: SubmitHandler<SignInRequest> = async data => {
     setIsLoading(true);
     setIsError(false);
     setError('');
     try {
-      const reseponse = await signin(data);
-      console.log(reseponse);
+      const response = await signin(data);
+      const {
+        data: {userId, name, email, accessToken, refreshToken, roles},
+      } = response;
+      setUser({userId, name, email, accessToken, refreshToken, roles});
+      navigation.navigate('App', {screen: 'Home'});
     } catch (err) {
       setIsError(true);
       if (err instanceof CustomError) {
