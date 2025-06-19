@@ -26,7 +26,7 @@ interface SignInScreenProps {
   navigation: NativeStackNavigationProp<RootStackParamList, 'Auth'>;
 }
 
-const SignInScreen: FC<SignInScreenProps> = ({navigation}) => {
+const SignInScreen: FC<SignInScreenProps> = () => {
   const [isPasswordHidden, setIsPasswordHidden] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
@@ -49,7 +49,6 @@ const SignInScreen: FC<SignInScreenProps> = ({navigation}) => {
         data: {userId, name, email, accessToken, refreshToken, roles},
       } = response;
       setUser({userId, name, email, accessToken, refreshToken, roles});
-      navigation.navigate('App', {screen: 'Home'});
     } catch (err) {
       setIsError(true);
       if (err instanceof CustomError) {
