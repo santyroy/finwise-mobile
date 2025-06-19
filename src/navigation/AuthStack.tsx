@@ -25,7 +25,7 @@ const AuthStack = () => {
   }
 
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{headerShown: false}}>
       {isAppFirstLaunched && (
         <Stack.Screen name="Onboarding" component={OnboardingScreen} />
       )}
