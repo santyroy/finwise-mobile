@@ -1,0 +1,47 @@
+import {create} from 'zustand';
+
+export interface UserStore {
+  isLoggedIn: boolean;
+  userId: string;
+  name: string;
+  email: string;
+  accessToken: string;
+  refreshToken: string;
+  roles: string[];
+
+  setIsLoggedIn: (status: boolean) => void;
+  setUserId: (userId: string) => void;
+  setName: (name: string) => void;
+  setEmail: (email: string) => void;
+  setAccessToken: (accessToken: string) => void;
+  setRefreshToken: (refreshToken: string) => void;
+  setRoles: (roles: string[]) => void;
+}
+
+export const useUserStore = create<UserStore>(set => ({
+  isLoggedIn: false,
+  userId: '',
+  name: '',
+  email: '',
+  accessToken: '',
+  refreshToken: '',
+  roles: [],
+
+  setIsLoggedIn: (status: boolean) => set(() => ({isLoggedIn: status})),
+  setUserId: (userId: string) => set(() => ({userId})),
+  setEmail: (email: string) => set(() => ({email})),
+  setName: (name: string) => set(() => ({name})),
+  setAccessToken: (accessToken: string) => set(() => ({accessToken})),
+  setRefreshToken: (refreshToken: string) => set(() => ({refreshToken})),
+  setRoles: (roles: string[]) => set(() => ({roles})),
+  reset: () =>
+    set(() => ({
+      isLoggedIn: false,
+      userId: '',
+      name: '',
+      email: '',
+      accessToken: '',
+      refreshToken: '',
+      roles: [],
+    })),
+}));
