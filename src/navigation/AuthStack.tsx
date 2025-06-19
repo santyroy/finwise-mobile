@@ -4,8 +4,8 @@ import OnboardingScreen from '@screens/auth/OnboardingScreen';
 import SignInScreen from '@screens/auth/SignInScreen';
 import SignUpScreen from '@screens/auth/SignUpScreen';
 import VerificationScreen from '@screens/auth/VerificationScreen';
-import ForgotPasswordScreen from 'screens/auth/ForgotPasswordScreen';
-import ResetPasswordScreen from 'screens/auth/ResetPasswordScreen';
+import ForgotPasswordScreen from '@screens/auth/ForgotPasswordScreen';
+import ResetPasswordScreen from '@screens/auth/ResetPasswordScreen';
 
 export type AuthStackParamList = {
   Onboarding: undefined;
@@ -25,7 +25,7 @@ const AuthStack = () => {
   }
 
   return (
-    <Stack.Navigator screenOptions={{headerShown: false}}>
+    <Stack.Navigator>
       {isAppFirstLaunched && (
         <Stack.Screen name="Onboarding" component={OnboardingScreen} />
       )}
