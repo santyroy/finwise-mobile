@@ -75,7 +75,7 @@ const ResetPasswordScreen: FC<ResetPasswordScreenProps> = ({
 
     try {
       await resetPassword(apiRequest);
-      navigation.navigate('SignIn');
+      navigation.replace('SignIn');
     } catch (err) {
       setIsError(true);
       if (err instanceof CustomError) {
