@@ -5,8 +5,8 @@ import {
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import AppStack, {AppStackParamList} from './AppStack';
 import AuthStack, {AuthStackParamList} from './AuthStack';
-
-const isLoggedIn = false;
+import {useUserStore} from 'store/UserStore';
+import {selectUserIsLoggedIn} from 'store/UserSelectors';
 
 export type RootStackParamList = {
   Auth: NavigatorScreenParams<AuthStackParamList>;
@@ -16,6 +16,7 @@ export type RootStackParamList = {
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 const RootNavigator = () => {
+  const isLoggedIn = useUserStore(selectUserIsLoggedIn);
   return (
     <NavigationContainer>
       <RootStack.Navigator screenOptions={{headerShown: false}}>
