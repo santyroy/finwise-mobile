@@ -6,6 +6,7 @@ export interface User {
   userId: string;
   name: string;
   email: string;
+  image: string;
   accessToken: string;
   refreshToken: string;
   roles: string[];
@@ -20,6 +21,7 @@ export interface UserStore extends User {
   setUserId: (userId: string) => void;
   setName: (name: string) => void;
   setEmail: (email: string) => void;
+  setImage: (email: string) => void;
   setAccessToken: (accessToken: string) => void;
   setRefreshToken: (refreshToken: string) => void;
   setRoles: (roles: string[]) => void;
@@ -33,6 +35,7 @@ export const useUserStore = create<UserStore>(set => ({
   userId: '',
   name: '',
   email: '',
+  image: '',
   accessToken: '',
   refreshToken: '',
   roles: [],
@@ -41,6 +44,7 @@ export const useUserStore = create<UserStore>(set => ({
   setHasHydrated: (status: boolean) => set(() => ({ hasHydrated: status })),
   setUserId: (userId: string) => set(() => ({ userId })),
   setEmail: (email: string) => set(() => ({ email })),
+  setImage: (image: string) => set(() => ({ image })),
   setName: (name: string) => set(() => ({ name })),
   setAccessToken: (accessToken: string) => set(() => ({ accessToken })),
   setRefreshToken: (refreshToken: string) => set(() => ({ refreshToken })),
