@@ -1,6 +1,7 @@
-import {UserStore} from './UserStore';
+import { UserStore } from './UserStore';
 
 export const selectUserIsLoggedIn = (state: UserStore) => state.isLoggedIn;
+export const selectHasHydrated = (state: UserStore) => state.hasHydrated;
 export const selectUserId = (state: UserStore) => state.userId;
 export const selectUserName = (state: UserStore) => state.name;
 export const selectUserEmail = (state: UserStore) => state.email;

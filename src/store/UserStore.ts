@@ -1,4 +1,6 @@
-import {create} from 'zustand';
+import { create } from 'zustand';
+import { storage } from '@data/mmkv';
+import { keys } from '@constants/MMKV';
 
 export interface User {
   userId: string;
@@ -11,8 +13,10 @@ export interface User {
 
 export interface UserStore extends User {
   isLoggedIn: boolean;
+  hasHydrated: boolean;
 
   setIsLoggedIn: (status: boolean) => void;
+  setHasHydrated: (status: boolean) => void;
   setUserId: (userId: string) => void;
   setName: (name: string) => void;
   setEmail: (email: string) => void;
@@ -25,6 +29,7 @@ export interface UserStore extends User {
 
 export const useUserStore = create<UserStore>(set => ({
   isLoggedIn: false,
+  hasHydrated: false,
   userId: '',
   name: '',
   email: '',
@@ -32,19 +37,25 @@ export const useUserStore = create<UserStore>(set => ({
   refreshToken: '',
   roles: [],
 
-  setIsLoggedIn: (status: boolean) => set(() => ({isLoggedIn: status})),
-  setUserId: (userId: string) => set(() => ({userId})),
-  setEmail: (email: string) => set(() => ({email})),
-  setName: (name: string) => set(() => ({name})),
-  setAccessToken: (accessToken: string) => set(() => ({accessToken})),
-  setRefreshToken: (refreshToken: string) => set(() => ({refreshToken})),
-  setRoles: (roles: string[]) => set(() => ({roles})),
-  setUser: (user: User) =>
+  setIsLoggedIn: (status: boolean) => set(() => ({ isLoggedIn: status })),
+  setHasHydrated: (status: boolean) => set(() => ({ hasHydrated: status })),
+  setUserId: (userId: string) => set(() => ({ userId })),
+  setEmail: (email: string) => set(() => ({ email })),
+  setName: (name: string) => set(() => ({ name })),
+  setAccessToken: (accessToken: string) => set(() => ({ accessToken })),
+  setRefreshToken: (refreshToken: string) => set(() => ({ refreshToken })),
+  setRoles: (roles: string[]) => set(() => ({ roles })),
+  setUser: (user: User) => {
+    // store user data in MMKV
+    storage.set(keys.USER_DETAILS, JSON.stringify(user));
     set(() => ({
       isLoggedIn: true,
       ...user,
-    })),
-  reset: () =>
+    }));
+  },
+  reset: () => {
+    // remove user data from MMKV
+    storage.delete(keys.USER_DETAILS);
     set(() => ({
       isLoggedIn: false,
       userId: '',
@@ -53,5 +64,6 @@ export const useUserStore = create<UserStore>(set => ({
       accessToken: '',
       refreshToken: '',
       roles: [],
-    })),
+    }));
+  },
 }));
