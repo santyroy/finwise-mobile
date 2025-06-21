@@ -4,6 +4,7 @@ import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
 import { Colors } from '@constants/Colors';
 import { useBottomSheetStore } from '@store/BottomSheetStore';
 import LogoutConfirmationComponent from '@components/LogoutConfirmationComponent';
+import { renderBackdrop } from '@components/BottomSheetBackdropComponent';
 
 const BottomSheetManager = () => {
   const sheetRef = useRef<BottomSheet>(null);
@@ -35,6 +36,7 @@ const BottomSheetManager = () => {
       enablePanDownToClose={true}
       backgroundStyle={{ backgroundColor: Colors.base.light[100] }}
       onClose={closeSheet}
+      backdropComponent={renderBackdrop}
     >
       <BottomSheetView style={styles.contentContainer}>
         {renderContent()}

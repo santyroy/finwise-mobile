@@ -2,8 +2,8 @@ import { StyleSheet, Text, View } from 'react-native';
 import SecondaryButton from '@components/SecondaryButton';
 import PrimaryButton from '@components/PrimaryButton';
 import { Colors } from '@constants/Colors';
-import { useBottomSheetStore } from 'store/BottomSheetStore';
-import { useUserStore } from 'store/UserStore';
+import { useBottomSheetStore } from '@store/BottomSheetStore';
+import { useUserStore } from '@store/UserStore';
 
 const LogoutConfirmationComponent = () => {
   const closeSheet = useBottomSheetStore(state => state.closeSheet);
@@ -14,7 +14,7 @@ const LogoutConfirmationComponent = () => {
   };
 
   return (
-    <View>
+    <>
       <Text style={styles.title}>Logout?</Text>
       <Text style={styles.subTitle}>Are you sure, do you want to logout?</Text>
       <View style={styles.btnContainer}>
@@ -29,7 +29,7 @@ const LogoutConfirmationComponent = () => {
           onPress={handleLogout}
         />
       </View>
-    </View>
+    </>
   );
 };
 
