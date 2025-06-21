@@ -9,7 +9,7 @@ import {
   BottomTabWalletIcon,
   BottomTabProfileIcon,
 } from '@navigation/Icons';
-import { Colors } from 'constants/Colors';
+import { Colors } from '@constants/Colors';
 
 export type AppStackParamList = {
   Home: undefined;
@@ -34,9 +34,7 @@ const AppStack = () => {
       <Tab.Screen
         name="Home"
         component={HomeScreen}
-        options={{
-          tabBarIcon: BottomTabHomeIcon,
-        }}
+        options={{ tabBarIcon: BottomTabHomeIcon }}
       />
       <Tab.Screen
         name="Transaction"
