@@ -1,6 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import Icon from '@react-native-vector-icons/fontawesome6';
 import { Colors } from '@constants/Colors';
+import { useBottomSheetStore } from '@store/BottomSheetStore';
 
 type IconName =
   | 'wallet'
@@ -54,6 +55,7 @@ const ProfileOptions = () => {
     console.log(`${btnName} button pressed`);
     switch (btnName) {
       case OptionName.Logout:
+        useBottomSheetStore.getState().openSheet('logoutConfirm');
         break;
       default:
         console.warn(`No action defined for ${btnName}`);
