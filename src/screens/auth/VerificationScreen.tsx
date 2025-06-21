@@ -1,8 +1,8 @@
-import {FC, useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {RouteProp} from '@react-navigation/native';
+import { FC, useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RouteProp } from '@react-navigation/native';
 
 import Header from '@components/Header';
 import OtpComponent from '@components/OtpComponent';
@@ -11,11 +11,11 @@ import OTPCountDownComponent from '@components/OTPCountDownComponent';
 import LoadingModalComponent from '@components/LoadingModalComponent';
 import ErrorModalComponent from '@components/ErrorModalComponent';
 
-import {Colors} from '@constants/Colors';
-import {OtpPurpose} from '@constants/OtpPurpose';
+import { Colors } from '@constants/Colors';
+import { OtpPurpose } from '@constants/OtpPurpose';
 import CustomError from 'data/CustomError';
-import {verifySignupUser} from '@services/auth';
-import {AuthStackParamList} from '@navigation/AuthStack';
+import { verifySignupUser } from '@services/auth';
+import { AuthStackParamList } from '@navigation/AuthStack';
 
 interface VerificationScreenProps {
   navigation: NativeStackNavigationProp<AuthStackParamList, 'Verification'>;
@@ -89,7 +89,7 @@ const VerificationScreen: FC<VerificationScreenProps> = ({
         <PrimaryButton
           title="Verify"
           disabled
-          btnContainerStyle={{backgroundColor: Colors.violet[40]}}
+          btnContainerStyle={{ backgroundColor: Colors.violet[40] }}
         />
       )}
     </SafeAreaView>
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingVertical: 20,
-    paddingHorizontal: 10,
+    paddingHorizontal: 15,
     backgroundColor: Colors.base.light[100],
   },
   title: {
@@ -110,5 +110,5 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     marginTop: 20,
   },
-  otpContainer: {marginVertical: 40},
+  otpContainer: { marginVertical: 40 },
 });

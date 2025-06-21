@@ -1,20 +1,20 @@
-import {FC, useState} from 'react';
-import {RouteProp} from '@react-navigation/native';
-import {StyleSheet, Text, View} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {SubmitHandler, useForm} from 'react-hook-form';
-import {zodResolver} from '@hookform/resolvers/zod';
+import { FC, useState } from 'react';
+import { RouteProp } from '@react-navigation/native';
+import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
-import {Colors} from '@constants/Colors';
-import {OtpPurpose} from '@constants/OtpPurpose';
-import {AuthStackParamList} from '@navigation/AuthStack';
+import { Colors } from '@constants/Colors';
+import { OtpPurpose } from '@constants/OtpPurpose';
+import { AuthStackParamList } from '@navigation/AuthStack';
 import {
   ResetPasswordRequest,
   ResetPasswordSchemaType,
 } from 'types/forgotPassword_types';
-import {ResetPasswordSchema} from '@schema/forgotPasswordSchema';
-import {resetPassword} from '@services/auth';
+import { ResetPasswordSchema } from '@schema/forgotPasswordSchema';
+import { resetPassword } from '@services/auth';
 import CustomError from '@data/CustomError';
 
 import Header from '@components/Header';
@@ -42,10 +42,10 @@ const ResetPasswordScreen: FC<ResetPasswordScreenProps> = ({
   const {
     control,
     handleSubmit,
-    formState: {errors},
+    formState: { errors },
   } = useForm<ResetPasswordSchemaType>({
     resolver: zodResolver(ResetPasswordSchema),
-    defaultValues: {email: route.params.email},
+    defaultValues: { email: route.params.email },
   });
 
   const isOTPValid = () => {
@@ -143,7 +143,7 @@ const ResetPasswordScreen: FC<ResetPasswordScreenProps> = ({
             <PrimaryButton
               title="Reset Password"
               disabled
-              btnContainerStyle={{backgroundColor: Colors.violet[40]}}
+              btnContainerStyle={{ backgroundColor: Colors.violet[40] }}
             />
           )}
         </View>
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.base.light[100],
-    paddingHorizontal: 10,
+    paddingHorizontal: 15,
     paddingVertical: 20,
   },
   verificationText: {

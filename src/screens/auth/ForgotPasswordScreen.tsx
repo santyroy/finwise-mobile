@@ -1,17 +1,17 @@
-import {FC, useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {AuthStackParamList} from 'navigation/AuthStack';
-import {SubmitHandler, useForm} from 'react-hook-form';
-import {zodResolver} from '@hookform/resolvers/zod';
+import { FC, useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { AuthStackParamList } from 'navigation/AuthStack';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
-import {Colors} from '@constants/Colors';
-import {OtpPurpose} from '@constants/OtpPurpose';
-import {ForgotPasswordSchema} from '@schema/forgotPasswordSchema';
-import {resendOTP} from '@services/auth';
-import {ForgotPasswordRequest} from 'types/forgotPassword_types';
-import {ResendOTPRequest} from 'types/verifyotp_types';
+import { Colors } from '@constants/Colors';
+import { OtpPurpose } from '@constants/OtpPurpose';
+import { ForgotPasswordSchema } from '@schema/forgotPasswordSchema';
+import { resendOTP } from '@services/auth';
+import { ForgotPasswordRequest } from 'types/forgotPassword_types';
+import { ResendOTPRequest } from 'types/verifyotp_types';
 import CustomError from '@data/CustomError';
 
 import Header from '@components/Header';
@@ -26,14 +26,16 @@ interface ForgotPasswordScreenProps {
   navigation: NativeStackNavigationProp<AuthStackParamList, 'ForgotPassword'>;
 }
 
-const ForgotPasswordScreen: FC<ForgotPasswordScreenProps> = ({navigation}) => {
+const ForgotPasswordScreen: FC<ForgotPasswordScreenProps> = ({
+  navigation,
+}) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
   const {
     control,
     handleSubmit,
-    formState: {errors},
+    formState: { errors },
   } = useForm<ForgotPasswordRequest>({
     resolver: zodResolver(ForgotPasswordSchema),
   });
@@ -42,14 +44,14 @@ const ForgotPasswordScreen: FC<ForgotPasswordScreenProps> = ({navigation}) => {
     setIsLoading(true);
     setIsError(false);
     setError('');
-    const {email} = data;
+    const { email } = data;
     const apiReq: ResendOTPRequest = {
       email: email,
       otpPurpose: OtpPurpose.PASSWORD_RESET,
     };
     try {
       await resendOTP(apiReq);
-      navigation.navigate('ResetPassword', {email: email});
+      navigation.navigate('ResetPassword', { email: email });
     } catch (err) {
       setIsError(true);
       if (err instanceof CustomError) {
@@ -103,7 +105,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.base.light[100],
-    paddingHorizontal: 10,
+    paddingHorizontal: 15,
     paddingVertical: 20,
   },
   headerContainer: {
